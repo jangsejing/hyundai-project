@@ -1,5 +1,6 @@
 package com.jess.hyundai.feature.search.presentation.screen
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -26,12 +27,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.jess.hyundai.model.entity.PixabayHitEntity
-import com.jess.hyundai.model.entity.WikipediaPageEntity
 import com.jess.hyundai.feature.search.R
 import com.jess.hyundai.feature.search.presentation.SearchResultItem
 import com.jess.hyundai.feature.search.presentation.SearchResultUiState
 import com.jess.hyundai.feature.search.presentation.SearchResultViewModel
+import com.jess.hyundai.model.constant.EXTRA_TAG
+import com.jess.hyundai.model.entity.PixabayHitEntity
+import com.jess.hyundai.model.entity.WikipediaPageEntity
 import com.jess.hyundai.navigator.Direction
 import com.jess.hyundai.ui.component.JessAppBar
 import com.jess.hyundai.ui.component.JessCircularProgress
@@ -50,8 +52,12 @@ internal fun SearchResultScreen(
 
     val launcher = rememberLauncherForActivityResult(
         ActivityResultContracts.StartActivityForResult()
-    ) {
-
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            viewModel.onSearch(
+                query = result.data?.getStringExtra(EXTRA_TAG)
+            )
+        }
     }
 
     Scaffold(

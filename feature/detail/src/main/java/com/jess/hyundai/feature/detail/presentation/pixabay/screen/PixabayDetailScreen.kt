@@ -32,6 +32,7 @@ import com.jess.hyundai.ui.component.JessAsyncImage
 @Composable
 fun PixabayDetailScreen(
     viewModel: PixabayDetailViewModel,
+    onTagClick: (String) -> Unit,
     onBackPress: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -75,9 +76,7 @@ fun PixabayDetailScreen(
 
             DetailTagsItem(
                 tags = uiState.tags,
-                onTagClick = { tag ->
-
-                }
+                onTagClick = onTagClick,
             )
 
             DetailDivider()
