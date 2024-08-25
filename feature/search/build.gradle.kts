@@ -41,6 +41,7 @@ dependencies {
     // project
     implementation(project(":data"))
     implementation(project(":domain"))
+    implementation(project(":model"))
     implementation(project(":network"))
     implementation(project(":navigator"))
     implementation(project(":ui"))

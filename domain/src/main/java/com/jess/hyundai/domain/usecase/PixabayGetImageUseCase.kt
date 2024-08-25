@@ -1,6 +1,6 @@
 package com.jess.hyundai.domain.usecase
 
-import com.jess.hyundai.domain.model.PixabayEntity
+import com.jess.hyundai.model.entity.PixabayEntity
 import com.jess.hyundai.domain.repository.PixabayRepository
 import javax.inject.Inject
 

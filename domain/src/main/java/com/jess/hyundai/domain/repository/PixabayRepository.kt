@@ -1,6 +1,6 @@
 package com.jess.hyundai.domain.repository
 
-import com.jess.hyundai.domain.model.PixabayEntity
+import com.jess.hyundai.model.entity.PixabayEntity
 
 interface PixabayRepository {
 

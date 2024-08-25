@@ -1,4 +1,4 @@
-package com.jess.hyundai.domain.model
+package com.jess.hyundai.model.entity
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

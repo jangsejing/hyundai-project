@@ -1,7 +1,7 @@
 package com.jess.hyundai.navigator
 
-import com.jess.hyundai.domain.model.PixabayHitEntity
-import com.jess.hyundai.domain.model.WikipediaPageEntity
+import com.jess.hyundai.model.entity.PixabayHitEntity
+import com.jess.hyundai.model.entity.WikipediaPageEntity
 
 sealed interface Direction {
 

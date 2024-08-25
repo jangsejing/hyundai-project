@@ -2,7 +2,7 @@ package com.jess.hyundai.feature.detail.presentation.pixabay
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.jess.hyundai.domain.model.PixabayHitEntity
+import com.jess.hyundai.model.entity.PixabayHitEntity
 import com.jess.hyundai.feature.detail.presentation.pixabay.PixabayDetailActivity.Companion.EXTRA_PIXABAY_ENTITY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

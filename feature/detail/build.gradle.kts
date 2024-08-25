@@ -39,7 +39,7 @@ android {
 dependencies {
 
     // project
-    implementation(project(":domain"))
+    implementation(project(":model"))
     implementation(project(":ui"))
 
     // androidx

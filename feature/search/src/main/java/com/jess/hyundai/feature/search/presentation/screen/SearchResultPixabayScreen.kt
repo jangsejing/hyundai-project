@@ -35,7 +35,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.jess.hyundai.domain.model.PixabayHitEntity
+import com.jess.hyundai.model.entity.PixabayHitEntity
 import com.jess.hyundai.feature.search.R
 import com.jess.hyundai.ui.component.JessAsyncImage
 

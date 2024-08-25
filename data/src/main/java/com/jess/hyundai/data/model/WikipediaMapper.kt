@@ -1,7 +1,7 @@
 package com.jess.hyundai.data.model
 
-import com.jess.hyundai.domain.model.WikipediaEntity
-import com.jess.hyundai.domain.model.WikipediaPageEntity
+import com.jess.hyundai.model.entity.WikipediaEntity
+import com.jess.hyundai.model.entity.WikipediaPageEntity
 
 internal fun WikipediaResponse.toEntity() = WikipediaEntity(
     pages = pages?.map {

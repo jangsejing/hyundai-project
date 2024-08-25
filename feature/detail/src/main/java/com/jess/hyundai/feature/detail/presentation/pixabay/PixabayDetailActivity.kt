@@ -7,7 +7,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import com.jess.hyundai.domain.model.PixabayHitEntity
+import com.jess.hyundai.model.entity.PixabayHitEntity
 import com.jess.hyundai.feature.detail.presentation.pixabay.screen.PixabayDetailScreen
 import com.jess.hyundai.ui.theme.HyundaiTheme
 import dagger.hilt.android.AndroidEntryPoint

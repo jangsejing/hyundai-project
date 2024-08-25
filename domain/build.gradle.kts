@@ -30,6 +30,9 @@ android {
 }
 
 dependencies {
+    // project
+    implementation(project(":model"))
+
     // javaxInject
     implementation(libs.javax.inject)
 }

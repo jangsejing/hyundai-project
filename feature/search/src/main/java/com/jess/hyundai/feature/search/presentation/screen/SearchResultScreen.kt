@@ -26,8 +26,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.jess.hyundai.domain.model.PixabayHitEntity
-import com.jess.hyundai.domain.model.WikipediaPageEntity
+import com.jess.hyundai.model.entity.PixabayHitEntity
+import com.jess.hyundai.model.entity.WikipediaPageEntity
 import com.jess.hyundai.feature.search.R
 import com.jess.hyundai.feature.search.presentation.SearchResultItem
 import com.jess.hyundai.feature.search.presentation.SearchResultUiState

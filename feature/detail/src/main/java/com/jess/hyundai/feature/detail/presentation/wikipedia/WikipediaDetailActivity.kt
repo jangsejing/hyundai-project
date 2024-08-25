@@ -7,8 +7,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import com.jess.hyundai.domain.model.WikipediaPageEntity
 import com.jess.hyundai.feature.detail.presentation.wikipedia.screen.WikipediaDetailScreen
+import com.jess.hyundai.model.constant.EXTRA_TAG
+import com.jess.hyundai.model.entity.WikipediaPageEntity
 import com.jess.hyundai.ui.theme.HyundaiTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,6 +39,15 @@ class WikipediaDetailActivity : ComponentActivity() {
             HyundaiTheme {
                 WikipediaDetailScreen(
                     viewModel = viewModel,
+                    onTagClick = { tag ->
+                        setResult(
+                            RESULT_OK,
+                            Intent().apply {
+                                putExtra(EXTRA_TAG, tag)
+                            }
+                        )
+                        finish()
+                    },
                     onBackPress = {
                         finish()
                     }

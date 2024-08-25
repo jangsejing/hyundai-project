@@ -1,6 +1,6 @@
 package com.jess.hyundai.domain.usecase
 
-import com.jess.hyundai.domain.model.WikipediaEntity
+import com.jess.hyundai.model.entity.WikipediaEntity
 import com.jess.hyundai.domain.repository.WikipediaRepository
 import javax.inject.Inject
 

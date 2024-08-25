@@ -2,7 +2,7 @@ package com.jess.hyundai.feature.detail.presentation.wikipedia
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.jess.hyundai.domain.model.WikipediaPageEntity
+import com.jess.hyundai.model.entity.WikipediaPageEntity
 import com.jess.hyundai.feature.detail.presentation.wikipedia.WikipediaDetailActivity.Companion.EXTRA_WIKIPEDIA_ENTITY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

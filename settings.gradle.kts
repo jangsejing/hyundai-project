@@ -25,6 +25,7 @@ include(
     ":app",
     ":data",
     ":domain",
+    ":model",
     ":network",
     ":navigator",
     ":ui",

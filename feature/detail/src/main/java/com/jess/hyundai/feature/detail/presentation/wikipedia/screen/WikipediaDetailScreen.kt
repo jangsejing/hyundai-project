@@ -18,14 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.jess.hyundai.feature.detail.R
 import com.jess.hyundai.feature.detail.presentation.common.DetailBasicItem
 import com.jess.hyundai.feature.detail.presentation.common.DetailDivider
@@ -39,6 +35,7 @@ import com.jess.hyundai.ui.webview.ComposeWebView
 @Composable
 fun WikipediaDetailScreen(
     viewModel: WikipediaDetailViewModel,
+    onTagClick: (String) -> Unit,
     onBackPress: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -75,9 +72,7 @@ fun WikipediaDetailScreen(
 
             DetailTagsItem(
                 tags = uiState.keywords,
-                onTagClick = { tag ->
-
-                }
+                onTagClick = onTagClick
             )
 
             DetailDivider()

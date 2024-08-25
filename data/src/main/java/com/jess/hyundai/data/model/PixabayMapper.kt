@@ -1,7 +1,7 @@
 package com.jess.hyundai.data.model
 
-import com.jess.hyundai.domain.model.PixabayEntity
-import com.jess.hyundai.domain.model.PixabayHitEntity
+import com.jess.hyundai.model.entity.PixabayEntity
+import com.jess.hyundai.model.entity.PixabayHitEntity
 
 internal fun PixabayResponse.toEntity() = PixabayEntity(
     total = total ?: 0,
