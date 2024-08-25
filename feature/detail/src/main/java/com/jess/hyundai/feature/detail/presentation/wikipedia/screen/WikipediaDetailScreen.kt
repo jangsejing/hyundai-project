@@ -36,7 +36,7 @@ import com.jess.hyundai.ui.webview.ComposeWebView
 fun WikipediaDetailScreen(
     viewModel: WikipediaDetailViewModel,
     onTagClick: (String) -> Unit,
-    onBackPress: () -> Unit,
+    onBackPressed: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -52,7 +52,7 @@ fun WikipediaDetailScreen(
                 },
                 navigationIcon = {
                     IconButton(
-                        onClick = onBackPress,
+                        onClick = onBackPressed,
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,

@@ -48,7 +48,7 @@ class WikipediaDetailActivity : ComponentActivity() {
                         )
                         finish()
                     },
-                    onBackPress = {
+                    onBackPressed = {
                         finish()
                     }
                 )

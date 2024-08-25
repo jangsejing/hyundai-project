@@ -36,7 +36,7 @@ class HomeActivity : ComponentActivity() {
                     getIntent = { direction ->
                         navigator.getIntent(this, direction)
                     },
-                    onBackPress = {
+                    onBackPressed = {
                         finish()
                     }
                 )

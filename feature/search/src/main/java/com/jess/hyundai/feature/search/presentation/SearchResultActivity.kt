@@ -45,7 +45,7 @@ class SearchResultActivity : ComponentActivity() {
                     getIntent = { direction ->
                         navigator.getIntent(this, direction)
                     },
-                    onBackPress = {
+                    onBackPressed = {
                         finish()
                     }
                 )

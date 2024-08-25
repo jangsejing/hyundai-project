@@ -3,7 +3,11 @@
     <string name="search_back">뒤로가기</string>
     <string name="search_result_query">\"%s\"</string>
     <string name="search_result_tail">&#160;검색 결과입니다.</string>
+    <string name="search_result_empty">뒤로가기</string>
+    <string name="search_result_research">다시 검색하기</string>
+
     <string name="search_wikipedia_result">위키 검색 결과 %,d개</string>
+
     <string name="search_pixabay_tag">태그 : %s\n</string>
     <string name="search_pixabay_size">사이즈 : %,dx%,d\n</string>
     <string name="search_pixabay_views">조회 : %,d회\n</string>

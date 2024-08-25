@@ -1,5 +1,7 @@
 <resources>
     <string name="home_title">홈</string>
+    <string name="home_confirm">확인</string>
     <string name="home_back">뒤로가기</string>
     <string name="home_search">검색</string>
+    <string name="home_input_query">검색창에 검색할 단어를 입력해주세요.</string>
 </resources>

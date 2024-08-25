@@ -33,7 +33,7 @@ import com.jess.hyundai.ui.component.JessAsyncImage
 fun PixabayDetailScreen(
     viewModel: PixabayDetailViewModel,
     onTagClick: (String) -> Unit,
-    onBackPress: () -> Unit,
+    onBackPressed: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -49,7 +49,7 @@ fun PixabayDetailScreen(
                 },
                 navigationIcon = {
                     IconButton(
-                        onClick = onBackPress,
+                        onClick = onBackPressed,
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,

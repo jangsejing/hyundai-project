@@ -10,13 +10,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,12 +40,13 @@ import com.jess.hyundai.ui.component.JessTextField
 @Composable
 internal fun HomeScreen(
     getIntent: (Direction) -> Intent,
-    onBackPress: () -> Unit,
+    onBackPressed: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
     val context = LocalContext.current
     var query by remember { mutableStateOf("motors") }
+    var openAlertDialog by remember { mutableStateOf(false) }
 
     Scaffold(
         modifier = modifier
@@ -54,7 +58,7 @@ internal fun HomeScreen(
                 },
                 navigationIcon = {
                     IconButton(
-                        onClick = onBackPress,
+                        onClick = onBackPressed,
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -72,7 +76,6 @@ internal fun HomeScreen(
             modifier = Modifier
                 .padding(innerPadding)
                 .imePadding()
-
         ) {
             Box(
                 modifier = Modifier
@@ -101,12 +104,13 @@ internal fun HomeScreen(
                     .fillMaxWidth()
                     .padding(24.dp),
                 onClick = {
-                    keyboardController?.hide()
-
                     if (query.isNotEmpty()) {
+                        keyboardController?.hide()
                         context.startActivity(
                             getIntent(Direction.SearchResult(query))
                         )
+                    } else {
+                        openAlertDialog = true
                     }
                 },
             ) {
@@ -114,4 +118,49 @@ internal fun HomeScreen(
             }
         }
     }
+
+    if (openAlertDialog) {
+        InputQueryAlertDialog(
+            onDismissRequest = {
+                openAlertDialog = false
+            },
+            onConfirmation = {
+                openAlertDialog = false
+            },
+        )
+    }
+}
+
+@Composable
+private fun InputQueryAlertDialog(
+    onConfirmation: () -> Unit,
+    onDismissRequest: () -> Unit,
+) {
+    AlertDialog(
+        icon = {
+            Icon(
+                imageVector = Icons.Filled.Info,
+                contentDescription = stringResource(id = R.string.home_input_query),
+            )
+        },
+        text = {
+            Text(
+                text = stringResource(id = R.string.home_input_query),
+            )
+        },
+        onDismissRequest = {
+            onDismissRequest()
+        },
+        confirmButton = {
+            TextButton(
+                onClick = {
+                    onConfirmation()
+                }
+            ) {
+                Text(
+                    text = stringResource(id = R.string.home_confirm),
+                )
+            }
+        },
+    )
 }

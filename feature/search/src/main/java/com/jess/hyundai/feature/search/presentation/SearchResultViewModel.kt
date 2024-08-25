@@ -81,15 +81,23 @@ class SearchResultViewModel @Inject constructor(
             }
 
             _uiState.update { prev ->
+                // 화면에 노출할 리스트 정보
+                val items = if (firstPage) {
+                    list
+                } else {
+                    prev.items.toMutableList().apply {
+                        addAll(list)
+                    }
+                }
+
                 prev.copy(
-                    query = query,
-                    items = if (firstPage) {
-                        list
+                    state = if (items.isNotEmpty()) {
+                        SearchResultContentUiState.Succeeded
                     } else {
-                        prev.items.toMutableList().apply {
-                            addAll(list)
-                        }
+                        SearchResultContentUiState.Empty
                     },
+                    query = query,
+                    items = items,
                     firstPage = firstPage,
                     loading = false,
                 )
@@ -98,6 +106,9 @@ class SearchResultViewModel @Inject constructor(
             Timber.e(it)
             _uiState.update { prev ->
                 prev.copy(
+                    state = SearchResultContentUiState.Failed(
+                        it.message.toString()
+                    ),
                     loading = false,
                 )
             }

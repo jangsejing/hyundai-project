@@ -48,7 +48,7 @@ class PixabayDetailActivity : ComponentActivity() {
                         )
                         finish()
                     },
-                    onBackPress = {
+                    onBackPressed = {
                         finish()
                     }
                 )

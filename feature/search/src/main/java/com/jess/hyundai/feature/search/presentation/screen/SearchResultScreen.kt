@@ -6,12 +6,17 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -24,13 +29,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.EmojiSupportMatch
+import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.jess.hyundai.feature.search.R
+import com.jess.hyundai.feature.search.presentation.SearchResultContentUiState
 import com.jess.hyundai.feature.search.presentation.SearchResultItem
 import com.jess.hyundai.feature.search.presentation.SearchResultUiState
 import com.jess.hyundai.feature.search.presentation.SearchResultViewModel
@@ -48,7 +59,7 @@ import kotlinx.coroutines.launch
 internal fun SearchResultScreen(
     viewModel: SearchResultViewModel,
     getIntent: (Direction) -> Intent,
-    onBackPress: () -> Unit,
+    onBackPressed: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -74,7 +85,7 @@ internal fun SearchResultScreen(
                 },
                 navigationIcon = {
                     IconButton(
-                        onClick = onBackPress,
+                        onClick = onBackPressed,
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -102,7 +113,8 @@ internal fun SearchResultScreen(
                 },
                 onLoadMore = {
                     viewModel.onLoadNextPage()
-                }
+                },
+                onBackPressed = onBackPressed,
             )
         }
     }
@@ -122,6 +134,7 @@ private fun SearchResultContent(
     onPixabayClick: (PixabayHitEntity) -> Unit,
     onWikipediaClick: (WikipediaPageEntity) -> Unit,
     onLoadMore: () -> Unit,
+    onBackPressed: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val lazyListState = rememberLazyListState()
@@ -161,33 +174,135 @@ private fun SearchResultContent(
             style = MaterialTheme.typography.titleLarge,
         )
 
-        JessInfinityLazyColumn(
-            state = lazyListState,
-            verticalArrangement = Arrangement.spacedBy(12.dp),
-            onLoadMore = onLoadMore,
-        ) {
-            itemsIndexed(
-                items = uiState.items,
-                key = { _, item ->
-                    item.hashCode()
-                },
-                contentType = { _, item ->
-                    item
-                }
-            ) { _, item ->
-                // 위키 검색 결과
-                when (item) {
-                    is SearchResultItem.PixabayItem -> PixabaySearchResult(
-                        entity = item.entity,
-                        onClick = onPixabayClick,
-                    )
+        when (uiState.state) {
+            is SearchResultContentUiState.Succeeded -> {
+                JessInfinityLazyColumn(
+                    state = lazyListState,
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    onLoadMore = onLoadMore,
+                ) {
+                    itemsIndexed(
+                        items = uiState.items,
+                        key = { _, item ->
+                            item.hashCode()
+                        },
+                        contentType = { _, item ->
+                            item
+                        }
+                    ) { _, item ->
+                        // 위키 검색 결과
+                        when (item) {
+                            is SearchResultItem.PixabayItem -> PixabaySearchResult(
+                                entity = item.entity,
+                                onClick = onPixabayClick,
+                            )
 
-                    is SearchResultItem.WikipediaItem -> WikipediaSearchResult(
-                        entities = item.entities,
-                        onClick = onWikipediaClick,
-                    )
+                            is SearchResultItem.WikipediaItem -> WikipediaSearchResult(
+                                entities = item.entities,
+                                onClick = onWikipediaClick,
+                            )
+                        }
+                    }
                 }
             }
+
+            is SearchResultContentUiState.Empty -> {
+                SearchResultEmptyPage(
+                    onBackPressed = onBackPressed,
+                )
+            }
+
+            is SearchResultContentUiState.Failed -> {
+                SearchResultFailedPage(
+                    message = uiState.state.message,
+                    onBackPressed = onBackPressed,
+                )
+            }
+
+            else -> Unit // nothing
         }
+    }
+}
+
+/**
+ * 검색을 했으나 데이터가 없을 경우 표시합니다.
+ */
+@Composable
+private fun SearchResultEmptyPage(
+    onBackPressed: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier.fillMaxHeight(),
+        verticalArrangement = Arrangement.Center,
+    ) {
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "🫙",
+            textAlign = TextAlign.Center,
+            fontSize = 100.sp,
+            style = TextStyle(
+                platformStyle = PlatformTextStyle(
+                    emojiSupportMatch = EmojiSupportMatch.None
+                )
+            )
+        )
+
+        Spacer(modifier = Modifier.height(56.dp))
+
+        Button(
+            modifier = Modifier
+                .fillMaxWidth(),
+            onClick = onBackPressed,
+        ) {
+            Text(text = stringResource(id = R.string.search_result_research))
+        }
+
+    }
+}
+
+/**
+ * 검색을 하는 과정에서 Exception 이 발생했을 경우 표시합니다.
+ */
+@Composable
+private fun SearchResultFailedPage(
+    message: String,
+    onBackPressed: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier.fillMaxHeight(),
+        verticalArrangement = Arrangement.Center,
+    ) {
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = "😇",
+            textAlign = TextAlign.Center,
+            fontSize = 100.sp,
+            style = TextStyle(
+                platformStyle = PlatformTextStyle(
+                    emojiSupportMatch = EmojiSupportMatch.None
+                )
+            )
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = message,
+            textAlign = TextAlign.Center,
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Button(
+            modifier = Modifier
+                .fillMaxWidth(),
+            onClick = onBackPressed,
+        ) {
+            Text(text = stringResource(id = R.string.search_result_research))
+        }
+
     }
 }
