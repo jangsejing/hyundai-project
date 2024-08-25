@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -18,7 +19,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -38,6 +41,7 @@ import com.jess.hyundai.navigator.Direction
 import com.jess.hyundai.ui.component.JessAppBar
 import com.jess.hyundai.ui.component.JessCircularProgress
 import com.jess.hyundai.ui.component.JessInfinityLazyColumn
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -120,12 +124,20 @@ private fun SearchResultContent(
     onLoadMore: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val lazyListState = rememberLazyListState()
+    val scope = rememberCoroutineScope()
+    // query 가 바뀌면 검색을 새로 했다고 판단, 스크롤 최상단으로 이동
+    LaunchedEffect(uiState.query) {
+        scope.launch {
+            lazyListState.scrollToItem(0)
+        }
+    }
+
     Column(
         modifier = modifier.padding(
             horizontal = 24.dp
         )
     ) {
-
         Text(
             text = buildAnnotatedString {
                 withStyle(
@@ -150,8 +162,9 @@ private fun SearchResultContent(
         )
 
         JessInfinityLazyColumn(
-            onLoadMore = onLoadMore,
+            state = lazyListState,
             verticalArrangement = Arrangement.spacedBy(12.dp),
+            onLoadMore = onLoadMore,
         ) {
             itemsIndexed(
                 items = uiState.items,

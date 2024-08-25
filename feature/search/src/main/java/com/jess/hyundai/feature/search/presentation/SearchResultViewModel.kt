@@ -90,6 +90,7 @@ class SearchResultViewModel @Inject constructor(
                             addAll(list)
                         }
                     },
+                    firstPage = firstPage,
                     loading = false,
                 )
             }
