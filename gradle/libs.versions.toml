@@ -13,7 +13,7 @@ kotlinPlugin = "1.8.10"
 spotlessPlugin = "6.19.0"
 
 # app
-kotlin = "1.9.0"
+kotlin = "1.9.22"
 
 # androidx
 androidxActivityCompose = "1.9.1"
