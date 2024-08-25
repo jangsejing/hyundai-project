@@ -1,0 +1,20 @@
+<resources>
+    <string name="pixabay_detail_title">이미지 상세</string>
+    <string name="pixabay_detail_back">뒤로가기</string>
+    <string name="pixabay_detail_user">작성자</string>
+    <string name="pixabay_detail_tag">태그</string>
+    <string name="pixabay_detail_tag_content">#%s</string>
+    <string name="pixabay_detail_size">사이즈</string>
+    <string name="pixabay_detail_size_content">%,dx%,d</string>
+    <string name="pixabay_detail_views">조회</string>
+    <string name="pixabay_detail_views_content">%,d</string>
+    <string name="pixabay_detail_downloads">다운로드</string>
+    <string name="pixabay_detail_downloads_content">%,d</string>
+
+    <string name="wikipedia_detail_title">위키 상세</string>
+    <string name="wikipedia_detail_back">뒤로가기</string>
+    <string name="wikipedia_detail_keywords">키워드</string>
+    <string name="wikipedia_detail_keywords_content">#%s</string>
+    <string name="wikipedia_detail_page_title">타이틀</string>
+    <string name="wikipedia_detail_extract">상세정보</string>
+</resources>
