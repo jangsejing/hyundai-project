@@ -35,7 +35,6 @@ class NavigatorImpl : Navigator {
                     entity = entity,
                 )
             }
-
         }
     }
 }

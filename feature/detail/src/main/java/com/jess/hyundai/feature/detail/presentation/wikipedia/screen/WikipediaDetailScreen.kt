@@ -39,7 +39,6 @@ fun WikipediaDetailScreen(
     onBackPressed: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
@@ -56,23 +55,22 @@ fun WikipediaDetailScreen(
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(id = R.string.wikipedia_detail_back)
+                            contentDescription = stringResource(id = R.string.wikipedia_detail_back),
                         )
                     }
-                }
+                },
             )
-        }
+        },
     ) { innerPadding ->
 
         Column(
-            modifier = modifier.padding(innerPadding)
+            modifier = modifier.padding(innerPadding),
         ) {
-
             Spacer(modifier = Modifier.height(24.dp))
 
             DetailTagsItem(
                 tags = uiState.keywords,
-                onTagClick = onTagClick
+                onTagClick = onTagClick,
             )
 
             DetailDivider()
@@ -105,10 +103,9 @@ fun WikipediaDetailScreen(
             if (uiState.webUrl.isNullOrBlank().not()) {
                 ComposeWebView(
                     url = uiState.webUrl.orEmpty(),
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
                 )
             }
         }
     }
 }
-

@@ -22,5 +22,4 @@ interface PixabayRemoteDataSource {
         @Query("page") page: Int,
         @Query("per_page") perPage: Int,
     ): PixabayResponse
-
 }

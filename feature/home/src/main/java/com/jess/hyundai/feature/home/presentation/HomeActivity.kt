@@ -38,10 +38,9 @@ class HomeActivity : ComponentActivity() {
                     },
                     onBackPressed = {
                         finish()
-                    }
+                    },
                 )
             }
         }
     }
-
 }

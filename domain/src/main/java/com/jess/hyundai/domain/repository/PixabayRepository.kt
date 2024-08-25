@@ -9,5 +9,4 @@ interface PixabayRepository {
         page: Int,
         perPage: Int,
     ): PixabayEntity
-
 }

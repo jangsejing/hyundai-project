@@ -16,5 +16,4 @@ interface WikipediaRemoteDataSource {
     suspend fun getRelatedPage(
         @Path("query") query: String,
     ): WikipediaResponse
-
 }

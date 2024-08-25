@@ -7,9 +7,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import com.jess.hyundai.model.entity.PixabayHitEntity
 import com.jess.hyundai.feature.detail.presentation.pixabay.screen.PixabayDetailScreen
 import com.jess.hyundai.model.constant.EXTRA_TAG
+import com.jess.hyundai.model.entity.PixabayHitEntity
 import com.jess.hyundai.ui.theme.HyundaiTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,13 +44,13 @@ class PixabayDetailActivity : ComponentActivity() {
                             RESULT_OK,
                             Intent().apply {
                                 putExtra(EXTRA_TAG, tag)
-                            }
+                            },
                         )
                         finish()
                     },
                     onBackPressed = {
                         finish()
-                    }
+                    },
                 )
             }
         }

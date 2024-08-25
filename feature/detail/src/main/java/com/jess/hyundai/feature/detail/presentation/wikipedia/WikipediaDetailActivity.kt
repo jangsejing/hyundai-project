@@ -44,13 +44,13 @@ class WikipediaDetailActivity : ComponentActivity() {
                             RESULT_OK,
                             Intent().apply {
                                 putExtra(EXTRA_TAG, tag)
-                            }
+                            },
                         )
                         finish()
                     },
                     onBackPressed = {
                         finish()
-                    }
+                    },
                 )
             }
         }

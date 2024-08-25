@@ -24,8 +24,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.jess.hyundai.model.entity.WikipediaPageEntity
 import com.jess.hyundai.feature.search.R
+import com.jess.hyundai.model.entity.WikipediaPageEntity
 import com.jess.hyundai.ui.component.JessAsyncImage
 
 /**
@@ -38,7 +38,7 @@ internal fun WikipediaSearchResult(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier
+        modifier = modifier,
     ) {
         Text(
             text = stringResource(id = R.string.search_wikipedia_result).format(entities.size),
@@ -49,7 +49,7 @@ internal fun WikipediaSearchResult(
         Spacer(modifier = Modifier.height(4.dp))
 
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         ) {
             entities.forEachIndexed { index, entity ->
                 WikipediaSearchResultItem(
@@ -74,7 +74,6 @@ internal fun WikipediaSearchResultItem(
     onClick: (WikipediaPageEntity) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     val configuration = LocalConfiguration.current
     // 스크린 width - 좌,우 여백 - 중간 여백
     val screenWidth = configuration.screenWidthDp.dp - (24.dp * 2) - 16.dp
@@ -98,16 +97,16 @@ internal fun WikipediaSearchResultItem(
                 .clickable(
                     onClick = {
                         onClick(entity)
-                    }
+                    },
                 ),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             JessAsyncImage(
                 modifier = Modifier
                     .height(160.dp)
                     .clip(RoundedCornerShape(size = 4.dp)),
                 url = entity.imageUrl,
-                contentDescription = entity.title
+                contentDescription = entity.title,
             )
 
             if (entity.title.isNullOrBlank().not()) {

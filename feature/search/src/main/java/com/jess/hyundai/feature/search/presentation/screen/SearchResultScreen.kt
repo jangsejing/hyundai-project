@@ -62,15 +62,14 @@ internal fun SearchResultScreen(
     onBackPressed: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     val launcher = rememberLauncherForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
+        ActivityResultContracts.StartActivityForResult(),
     ) { result ->
         if (result.resultCode == RESULT_OK) {
             viewModel.onSearch(
-                query = result.data?.getStringExtra(EXTRA_TAG)
+                query = result.data?.getStringExtra(EXTRA_TAG),
             )
         }
     }
@@ -89,12 +88,12 @@ internal fun SearchResultScreen(
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(id = R.string.search_back)
+                            contentDescription = stringResource(id = R.string.search_back),
                         )
                     }
-                }
+                },
             )
-        }
+        },
     ) { innerPadding ->
         // content
         if (uiState.query.isNullOrBlank().not()) {
@@ -103,12 +102,12 @@ internal fun SearchResultScreen(
                 modifier = Modifier.padding(innerPadding),
                 onPixabayClick = { entity ->
                     launcher.launch(
-                        getIntent(Direction.PixabayDetail(entity))
+                        getIntent(Direction.PixabayDetail(entity)),
                     )
                 },
                 onWikipediaClick = { entity ->
                     launcher.launch(
-                        getIntent(Direction.WikipediaDetail(entity))
+                        getIntent(Direction.WikipediaDetail(entity)),
                     )
                 },
                 onLoadMore = {
@@ -148,24 +147,24 @@ private fun SearchResultContent(
 
     Column(
         modifier = modifier.padding(
-            horizontal = 24.dp
-        )
+            horizontal = 24.dp,
+        ),
     ) {
         Text(
             text = buildAnnotatedString {
                 withStyle(
                     style = SpanStyle(
-                        fontWeight = FontWeight.Bold
-                    )
+                        fontWeight = FontWeight.Bold,
+                    ),
                 ) {
                     append(
                         stringResource(
-                            id = R.string.search_result_query
-                        ).format(uiState.query)
+                            id = R.string.search_result_query,
+                        ).format(uiState.query),
                     )
                 }
                 append(
-                    stringResource(id = R.string.search_result_tail)
+                    stringResource(id = R.string.search_result_tail),
                 )
             },
             modifier = Modifier.padding(
@@ -188,7 +187,7 @@ private fun SearchResultContent(
                         },
                         contentType = { _, item ->
                             item
-                        }
+                        },
                     ) { _, item ->
                         // 위키 검색 결과
                         when (item) {
@@ -230,7 +229,7 @@ private fun SearchResultContent(
 @Composable
 private fun SearchResultEmptyPage(
     onBackPressed: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier.fillMaxHeight(),
@@ -243,9 +242,9 @@ private fun SearchResultEmptyPage(
             fontSize = 100.sp,
             style = TextStyle(
                 platformStyle = PlatformTextStyle(
-                    emojiSupportMatch = EmojiSupportMatch.None
-                )
-            )
+                    emojiSupportMatch = EmojiSupportMatch.None,
+                ),
+            ),
         )
 
         Spacer(modifier = Modifier.height(56.dp))
@@ -257,7 +256,6 @@ private fun SearchResultEmptyPage(
         ) {
             Text(text = stringResource(id = R.string.search_result_research))
         }
-
     }
 }
 
@@ -268,7 +266,7 @@ private fun SearchResultEmptyPage(
 private fun SearchResultFailedPage(
     message: String,
     onBackPressed: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier.fillMaxHeight(),
@@ -281,9 +279,9 @@ private fun SearchResultFailedPage(
             fontSize = 100.sp,
             style = TextStyle(
                 platformStyle = PlatformTextStyle(
-                    emojiSupportMatch = EmojiSupportMatch.None
-                )
-            )
+                    emojiSupportMatch = EmojiSupportMatch.None,
+                ),
+            ),
         )
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -303,6 +301,5 @@ private fun SearchResultFailedPage(
         ) {
             Text(text = stringResource(id = R.string.search_result_research))
         }
-
     }
 }

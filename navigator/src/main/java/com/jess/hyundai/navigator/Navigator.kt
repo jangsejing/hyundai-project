@@ -7,7 +7,6 @@ interface Navigator {
 
     fun getIntent(
         context: Context,
-        direction: Direction
+        direction: Direction,
     ): Intent
-
 }

@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         startActivity(
-            HomeActivity.newIntent(this)
+            HomeActivity.newIntent(this),
         )
         finish()
     }

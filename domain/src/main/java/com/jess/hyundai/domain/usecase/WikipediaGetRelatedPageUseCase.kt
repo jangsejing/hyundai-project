@@ -1,11 +1,11 @@
 package com.jess.hyundai.domain.usecase
 
-import com.jess.hyundai.model.entity.WikipediaEntity
 import com.jess.hyundai.domain.repository.WikipediaRepository
+import com.jess.hyundai.model.entity.WikipediaEntity
 import javax.inject.Inject
 
 class WikipediaGetRelatedPageUseCase @Inject constructor(
-    private val repository: WikipediaRepository
+    private val repository: WikipediaRepository,
 ) {
 
     suspend operator fun invoke(

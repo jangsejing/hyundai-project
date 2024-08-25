@@ -26,5 +26,5 @@ data class PixabayHitResponse(
     @SerializedName("imageHeight") val imageHeight: Int?,
     @SerializedName("views") val views: Long?,
     @SerializedName("downloads") val downloads: Long?,
-    @SerializedName("largeImageURL") val largeImageUrl: String?
+    @SerializedName("largeImageURL") val largeImageUrl: String?,
 )

@@ -1,11 +1,11 @@
 package com.jess.hyundai.domain.usecase
 
-import com.jess.hyundai.model.entity.PixabayEntity
 import com.jess.hyundai.domain.repository.PixabayRepository
+import com.jess.hyundai.model.entity.PixabayEntity
 import javax.inject.Inject
 
 class PixabayGetImageUseCase @Inject constructor(
-    private val repository: PixabayRepository
+    private val repository: PixabayRepository,
 ) {
 
     suspend operator fun invoke(

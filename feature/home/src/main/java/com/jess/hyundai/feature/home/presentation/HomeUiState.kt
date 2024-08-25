@@ -9,7 +9,7 @@ data class HomeUiState(
         fun empty(
             query: String = "",
         ) = HomeUiState(
-            query = query
+            query = query,
         )
     }
 }

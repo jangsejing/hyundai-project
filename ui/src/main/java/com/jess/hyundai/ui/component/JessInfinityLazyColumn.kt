@@ -61,7 +61,7 @@ fun JessInfinityLazyColumn(
 private fun LazyListState.onLoadMore(
     limitCount: Int,
     loadOnBottom: Boolean,
-    action: () -> Unit
+    action: () -> Unit,
 ) {
     val reached by remember {
         derivedStateOf {
@@ -80,6 +80,6 @@ private fun LazyListState.reachedBottom(
     triggerOnEnd: Boolean,
 ): Boolean {
     val lastVisibleItem = layoutInfo.visibleItemsInfo.lastOrNull()
-    return (triggerOnEnd && lastVisibleItem?.index == layoutInfo.totalItemsCount - 1)
-            || lastVisibleItem?.index != 0 && lastVisibleItem?.index == layoutInfo.totalItemsCount - (limitCount + 1)
+    return (triggerOnEnd && lastVisibleItem?.index == layoutInfo.totalItemsCount - 1) ||
+        lastVisibleItem?.index != 0 && lastVisibleItem?.index == layoutInfo.totalItemsCount - (limitCount + 1)
 }

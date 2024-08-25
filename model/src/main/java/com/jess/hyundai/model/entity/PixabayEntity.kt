@@ -18,5 +18,5 @@ data class PixabayHitEntity(
     val height: Int?,
     val views: Long?,
     val downloads: Long?,
-    val imageUrl: String?
+    val imageUrl: String?,
 ) : Parcelable

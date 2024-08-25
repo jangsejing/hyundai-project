@@ -43,7 +43,6 @@ internal fun HomeScreen(
     onBackPressed: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     val context = LocalContext.current
     var query by remember { mutableStateOf("motors") }
     var openAlertDialog by remember { mutableStateOf(false) }
@@ -62,12 +61,12 @@ internal fun HomeScreen(
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(id = R.string.home_back)
+                            contentDescription = stringResource(id = R.string.home_back),
                         )
                     }
-                }
+                },
             )
-        }
+        },
     ) { innerPadding ->
 
         val keyboardController = LocalSoftwareKeyboardController.current
@@ -75,7 +74,7 @@ internal fun HomeScreen(
         Column(
             modifier = Modifier
                 .padding(innerPadding)
-                .imePadding()
+                .imePadding(),
         ) {
             Box(
                 modifier = Modifier
@@ -92,7 +91,7 @@ internal fun HomeScreen(
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Filled.Search,
-                            contentDescription = stringResource(id = R.string.home_search)
+                            contentDescription = stringResource(id = R.string.home_search),
                         )
                     },
                     singleLine = true,
@@ -107,7 +106,7 @@ internal fun HomeScreen(
                     if (query.isNotEmpty()) {
                         keyboardController?.hide()
                         context.startActivity(
-                            getIntent(Direction.SearchResult(query))
+                            getIntent(Direction.SearchResult(query)),
                         )
                     } else {
                         openAlertDialog = true
@@ -155,7 +154,7 @@ private fun InputQueryAlertDialog(
             TextButton(
                 onClick = {
                     onConfirmation()
-                }
+                },
             ) {
                 Text(
                     text = stringResource(id = R.string.home_confirm),

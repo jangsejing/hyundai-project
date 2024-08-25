@@ -7,5 +7,4 @@ interface WikipediaRepository {
     suspend fun getRelatedPage(
         query: String,
     ): WikipediaEntity
-
 }

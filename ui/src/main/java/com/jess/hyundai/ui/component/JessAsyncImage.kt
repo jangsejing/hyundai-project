@@ -42,9 +42,9 @@ fun JessAsyncImage(
                 fontSize = 26.sp,
                 style = TextStyle(
                     platformStyle = PlatformTextStyle(
-                        emojiSupportMatch = EmojiSupportMatch.None
-                    )
-                )
+                        emojiSupportMatch = EmojiSupportMatch.None,
+                    ),
+                ),
             )
         }
     }

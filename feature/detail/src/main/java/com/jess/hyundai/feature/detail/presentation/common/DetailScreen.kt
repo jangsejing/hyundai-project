@@ -33,7 +33,7 @@ internal fun DetailBasicItem(
 ) {
     Row(
         modifier = modifier.padding(
-            horizontal = 24.dp
+            horizontal = 24.dp,
         ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
@@ -61,11 +61,11 @@ internal fun DetailBasicItem(
 internal fun DetailTagsItem(
     tags: List<String>,
     onTagClick: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier.padding(
-            horizontal = 24.dp
+            horizontal = 24.dp,
         ),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -85,7 +85,7 @@ internal fun DetailTagsItem(
                         onTagClick(it)
                     },
                     text = stringResource(
-                        id = R.string.pixabay_detail_tag_content
+                        id = R.string.pixabay_detail_tag_content,
                     ).format(it),
                     color = Color.Blue,
                 )
@@ -100,11 +100,10 @@ fun DetailDivider(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier
+        modifier = modifier,
     ) {
         Spacer(modifier = Modifier.height(2.dp))
         HorizontalDivider()
         Spacer(modifier = Modifier.height(2.dp))
     }
-
 }

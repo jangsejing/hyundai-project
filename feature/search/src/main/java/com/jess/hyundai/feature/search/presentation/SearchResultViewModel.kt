@@ -59,14 +59,13 @@ class SearchResultViewModel @Inject constructor(
         query: String,
         firstPage: Boolean = false,
     ) = viewModelScope.launch {
-
         if (query.isBlank()) {
             return@launch
         }
 
         _uiState.update { prev ->
             prev.copy(
-                loading = true
+                loading = true,
             )
         }
 
@@ -107,7 +106,7 @@ class SearchResultViewModel @Inject constructor(
             _uiState.update { prev ->
                 prev.copy(
                     state = SearchResultContentUiState.Failed(
-                        it.message.toString()
+                        it.message.toString(),
                     ),
                     loading = false,
                 )
@@ -177,7 +176,7 @@ class SearchResultViewModel @Inject constructor(
             } else {
                 // 3개 까지 추출함
                 getWikipediaRelatedPage(
-                    query = query
+                    query = query,
                 ).pages.take(3)
             }
         }.onFailure {

@@ -24,7 +24,7 @@ fun JessAppBar(
         containerColor = MaterialTheme.colorScheme.primaryContainer,
         titleContentColor = Color.Black,
     ),
-    scrollBehavior: TopAppBarScrollBehavior? = null
+    scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
     TopAppBar(
         title = title,

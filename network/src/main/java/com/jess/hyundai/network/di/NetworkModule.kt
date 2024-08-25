@@ -31,7 +31,7 @@ class NetworkModule {
                 HttpLoggingInterceptor().apply {
                     // 요청과 응답의 본문 내용까지 로그에 포함
                     level = HttpLoggingInterceptor.Level.BODY
-                }
+                },
             )
             .build()
     }
@@ -73,5 +73,4 @@ class NetworkModule {
     ): WikipediaRemoteDataSource {
         return retrofit.create(WikipediaRemoteDataSource::class.java)
     }
-
 }

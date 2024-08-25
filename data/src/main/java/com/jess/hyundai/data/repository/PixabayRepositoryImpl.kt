@@ -2,8 +2,8 @@ package com.jess.hyundai.data.repository
 
 import com.jess.hyundai.data.model.toEntity
 import com.jess.hyundai.data.remote.PixabayRemoteDataSource
-import com.jess.hyundai.model.entity.PixabayEntity
 import com.jess.hyundai.domain.repository.PixabayRepository
+import com.jess.hyundai.model.entity.PixabayEntity
 import javax.inject.Inject
 
 class PixabayRepositoryImpl @Inject constructor(

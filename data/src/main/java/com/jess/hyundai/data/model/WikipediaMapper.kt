@@ -6,7 +6,7 @@ import com.jess.hyundai.model.entity.WikipediaPageEntity
 internal fun WikipediaResponse.toEntity() = WikipediaEntity(
     pages = pages?.map {
         it.toEntity()
-    }.orEmpty()
+    }.orEmpty(),
 )
 
 internal fun WikipediaPageResponse.toEntity() = WikipediaPageEntity(

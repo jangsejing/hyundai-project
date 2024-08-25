@@ -44,8 +44,8 @@ fun JessTextField(
     colors: TextFieldColors = TextFieldDefaults.colors(
         focusedIndicatorColor = Color.Transparent,
         unfocusedIndicatorColor = Color.Transparent,
-        disabledIndicatorColor = Color.Transparent
-    )
+        disabledIndicatorColor = Color.Transparent,
+        ),
 ) {
     TextField(
         value = value,

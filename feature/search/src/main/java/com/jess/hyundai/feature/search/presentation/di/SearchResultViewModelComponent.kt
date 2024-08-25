@@ -15,12 +15,11 @@ abstract class SearchResultViewModelComponent {
 
     @Binds
     abstract fun bindPixabayRepository(
-        repository: PixabayRepositoryImpl
+        repository: PixabayRepositoryImpl,
     ): PixabayRepository
 
     @Binds
     abstract fun bindWikipediaRepository(
-        repository: WikipediaRepositoryImpl
+        repository: WikipediaRepositoryImpl,
     ): WikipediaRepository
-
 }

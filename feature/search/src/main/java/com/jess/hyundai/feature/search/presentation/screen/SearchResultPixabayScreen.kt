@@ -35,8 +35,8 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.jess.hyundai.model.entity.PixabayHitEntity
 import com.jess.hyundai.feature.search.R
+import com.jess.hyundai.model.entity.PixabayHitEntity
 import com.jess.hyundai.ui.component.JessAsyncImage
 
 @Composable
@@ -45,7 +45,6 @@ fun PixabaySearchResult(
     onClick: (PixabayHitEntity) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     var extended by rememberSaveable { mutableStateOf(false) }
 
     Box(
@@ -62,11 +61,11 @@ fun PixabaySearchResult(
         PixabayExtendButton(
             extended = extended,
             modifier = Modifier.align(
-                Alignment.BottomEnd
+                Alignment.BottomEnd,
             ),
             onClick = {
                 extended = extended.not()
-            }
+            },
         )
     }
 }
@@ -76,7 +75,7 @@ private fun PixabaySearchResultItem(
     entity: PixabayHitEntity,
     extended: Boolean,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val height by animateDpAsState(
         targetValue = if (extended) {
@@ -84,7 +83,7 @@ private fun PixabaySearchResultItem(
         } else {
             80.dp
         },
-        label = "DpAnimation"
+        label = "DpAnimation",
     )
 
     Card(
@@ -101,7 +100,6 @@ private fun PixabaySearchResultItem(
                 .fillMaxWidth()
                 .clickable(onClick = onClick),
         ) {
-
             JessAsyncImage(
                 url = entity.imageUrl,
                 contentDescription = entity.tags.toString(),
@@ -110,13 +108,13 @@ private fun PixabaySearchResultItem(
                         width = 80.dp,
                         height = height,
                     )
-                    .clip(RoundedCornerShape(size = 4.dp))
+                    .clip(RoundedCornerShape(size = 4.dp)),
             )
 
             Spacer(modifier = Modifier.width(4.dp))
 
             Column(
-                modifier = Modifier.padding(4.dp)
+                modifier = Modifier.padding(4.dp),
             ) {
                 Text(
                     text = entity.user.orEmpty(),
@@ -131,7 +129,7 @@ private fun PixabaySearchResultItem(
                         append(
                             stringResource(
                                 id = R.string.search_pixabay_tag,
-                            ).format(entity.tags.joinToString(", "))
+                            ).format(entity.tags.joinToString(", ")),
                         )
                     }
 
@@ -139,7 +137,7 @@ private fun PixabaySearchResultItem(
                         append(
                             stringResource(
                                 id = R.string.search_pixabay_size,
-                            ).format(entity.width ?: 0, entity.height ?: 0)
+                            ).format(entity.width ?: 0, entity.height ?: 0),
                         )
                     }
 
@@ -147,7 +145,7 @@ private fun PixabaySearchResultItem(
                         append(
                             stringResource(
                                 id = R.string.search_pixabay_views,
-                            ).format(entity.views ?: 0)
+                            ).format(entity.views ?: 0),
                         )
                     }
 
@@ -155,7 +153,7 @@ private fun PixabaySearchResultItem(
                         append(
                             stringResource(
                                 id = R.string.search_pixabay_downloads,
-                            ).format(entity.downloads ?: 0)
+                            ).format(entity.downloads ?: 0),
                         )
                     }
                 }
@@ -169,7 +167,7 @@ private fun PixabaySearchResultItem(
                         Int.MAX_VALUE
                     } else {
                         2
-                    }
+                    },
                 )
             }
         }
@@ -180,7 +178,7 @@ private fun PixabaySearchResultItem(
 private fun PixabayExtendButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    extended: Boolean = false // true 펼침, false 닫힘 (기본값)
+    extended: Boolean = false, // true 펼침, false 닫힘 (기본값)
 ) {
     IconButton(
         modifier = modifier,

@@ -47,7 +47,7 @@ class SearchResultActivity : ComponentActivity() {
                     },
                     onBackPressed = {
                         finish()
-                    }
+                    },
                 )
             }
         }

@@ -36,7 +36,6 @@ fun PixabayDetailScreen(
     onBackPressed: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
@@ -53,18 +52,17 @@ fun PixabayDetailScreen(
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(id = R.string.pixabay_detail_back)
+                            contentDescription = stringResource(id = R.string.pixabay_detail_back),
                         )
                     }
-                }
+                },
             )
-        }
+        },
     ) { innerPadding ->
 
         Column(
-            modifier = modifier.padding(innerPadding)
+            modifier = modifier.padding(innerPadding),
         ) {
-
             Spacer(modifier = Modifier.height(24.dp))
 
             DetailBasicItem(
@@ -84,10 +82,10 @@ fun PixabayDetailScreen(
             DetailBasicItem(
                 title = stringResource(id = R.string.pixabay_detail_size),
                 content = stringResource(
-                    id = R.string.pixabay_detail_size_content
+                    id = R.string.pixabay_detail_size_content,
                 ).format(
                     uiState.width,
-                    uiState.height
+                    uiState.height,
                 ),
             )
 
@@ -96,7 +94,7 @@ fun PixabayDetailScreen(
             DetailBasicItem(
                 title = stringResource(id = R.string.pixabay_detail_views),
                 content = stringResource(
-                    id = R.string.pixabay_detail_views_content
+                    id = R.string.pixabay_detail_views_content,
                 ).format(uiState.views),
             )
 
@@ -105,7 +103,7 @@ fun PixabayDetailScreen(
             DetailBasicItem(
                 title = stringResource(id = R.string.pixabay_detail_downloads),
                 content = stringResource(
-                    id = R.string.pixabay_detail_views_content
+                    id = R.string.pixabay_detail_views_content,
                 ).format(uiState.downloads),
             )
 

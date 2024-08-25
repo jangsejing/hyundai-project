@@ -8,7 +8,7 @@ data class SearchResultPageModel(
     fun plusNextPage(): SearchResultPageModel {
         val nextPage = nextPage
         return this.copy(
-            nextPage = nextPage + 1
+            nextPage = nextPage + 1,
         )
     }
 }
