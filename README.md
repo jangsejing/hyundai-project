@@ -26,12 +26,3 @@ APK 파일을 다운로드하여 설치합니다.
 * Hilt
 * Multiple Module
 * Spotless
-
-## Screenshots
-| 홈 화면 | 검색 결과 화면 |
-|---|---|
-| <img src="https://raw.githubusercontent.com/jangsejing/hyundai-project/main/screenshots/home.png" width="250"> | <img src="https://raw.githubusercontent.com/jangsejing/hyundai-project/main/screenshots/pixabay_detail.png" width="250"> |
-
-| Pixabay 상세 화면 | Wikipedia 상세 화면 |
-|---|---|
-| <img src="https://raw.githubusercontent.com/jangsejing/hyundai-project/main/screenshots/search_result.png" width="250"> | <img src="https://raw.githubusercontent.com/jangsejing/hyundai-project/main/screenshots/wikipedia_detail.png" width="250"> |
