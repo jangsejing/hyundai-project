@@ -9,9 +9,6 @@ hyundai-project는 Kotlin, Jetpack Compose, Retrofit을 사용하여 개발된 �
 * 멀티 모듈 구조를 통해 코드를 효율적으로 관리
 * Spotless를 사용하여 코드 스타일 일관성 유지
 
-## 설치 방법
-APK 파일을 다운로드하여 설치합니다.
-
 ## API 문서
 
 * Pixabay API: https://pixabay.com/api/docs
