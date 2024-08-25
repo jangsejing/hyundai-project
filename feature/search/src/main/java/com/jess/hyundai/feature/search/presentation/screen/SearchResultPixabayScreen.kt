@@ -33,10 +33,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.EmojiSupportMatch
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.jess.hyundai.domain.model.PixabayHitEntity
@@ -104,22 +109,44 @@ private fun PixabaySearchResultItem(
                 .fillMaxWidth()
                 .clickable(onClick = onClick),
         ) {
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(entity.imageUrl)
-                    .crossfade(true)
-                    .build(),
-                contentDescription = entity.tags.toString(),
-                modifier = Modifier
-                    .size(
+
+            if (entity.imageUrl.isNullOrBlank().not()) {
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(entity.imageUrl)
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = entity.tags.toString(),
+                    modifier = Modifier
+                        .size(
+                            width = 80.dp,
+                            height = height,
+                        )
+                        .clip(
+                            RoundedCornerShape(size = 4.dp)
+                        ),
+                    contentScale = ContentScale.Crop,
+                )
+            } else {
+                Box(
+                    modifier = Modifier.size(
                         width = 80.dp,
                         height = height,
-                    )
-                    .clip(
-                        RoundedCornerShape(size = 4.dp)
                     ),
-                contentScale = ContentScale.Crop,
-            )
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(
+                        text = "\uD83D\uDEE0",
+                        textAlign = TextAlign.Center,
+                        fontSize = 26.sp,
+                        style = TextStyle(
+                            platformStyle = PlatformTextStyle(
+                                emojiSupportMatch = EmojiSupportMatch.None
+                            )
+                        )
+                    )
+                }
+            }
 
             Spacer(modifier = Modifier.width(4.dp))
 

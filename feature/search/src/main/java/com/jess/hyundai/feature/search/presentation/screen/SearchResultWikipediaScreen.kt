@@ -2,6 +2,7 @@ package com.jess.hyundai.feature.search.presentation.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -23,9 +24,14 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.EmojiSupportMatch
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.jess.hyundai.domain.model.WikipediaPageEntity
@@ -105,19 +111,37 @@ internal fun WikipediaSearchResultItem(
                 ),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(entity.imageUrl)
-                    .crossfade(true)
-                    .build(),
-                contentDescription = entity.title,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .height(160.dp)
-                    .clip(
-                        RoundedCornerShape(4.dp)
+            if (entity.imageUrl.isNullOrBlank().not()) {
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(entity.imageUrl)
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = entity.title,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .height(160.dp)
+                        .clip(
+                            RoundedCornerShape(4.dp)
+                        )
+                )
+            } else {
+                Box(
+                    modifier = Modifier.height(160.dp),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Text(
+                        text = "\uD83D\uDEE0",
+                        textAlign = TextAlign.Center,
+                        fontSize = 26.sp,
+                        style = TextStyle(
+                            platformStyle = PlatformTextStyle(
+                                emojiSupportMatch = EmojiSupportMatch.None
+                            )
+                        )
                     )
-            )
+                }
+            }
 
             if (entity.title.isNullOrBlank().not()) {
                 Text(
