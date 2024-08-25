@@ -26,6 +26,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.jess.hyundai.feature.detail.R
 import com.jess.hyundai.feature.detail.presentation.common.DetailBasicItem
+import com.jess.hyundai.feature.detail.presentation.common.DetailDivider
 import com.jess.hyundai.feature.detail.presentation.common.DetailTagsItem
 import com.jess.hyundai.feature.detail.presentation.wikipedia.WikipediaDetailViewModel
 import com.jess.hyundai.ui.component.JessAppBar
@@ -76,14 +77,14 @@ fun WikipediaDetailScreen(
                 }
             )
 
-            Spacer(modifier = Modifier.height(4.dp))
+            DetailDivider()
 
             DetailBasicItem(
                 title = stringResource(id = R.string.wikipedia_detail_page_title),
                 content = uiState.title,
             )
 
-            Spacer(modifier = Modifier.height(4.dp))
+            DetailDivider()
 
             DetailBasicItem(
                 title = stringResource(id = R.string.wikipedia_detail_extract),

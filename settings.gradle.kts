@@ -20,13 +20,18 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "hyundai-project"
+
 include(
     ":app",
     ":data",
     ":domain",
     ":network",
+    ":navigator",
     ":ui",
     ":feature:home",
-    ":feature:search",
     ":feature:detail",
+    ":feature:search",
 )
+
+// DFM
+include(":feature:search")

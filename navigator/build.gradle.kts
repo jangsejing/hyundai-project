@@ -1,11 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
-    namespace = "com.jess.hyundai.domain"
+    namespace = "com.jess.hyundai.navigator"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
@@ -30,6 +29,5 @@ android {
 }
 
 dependencies {
-    // javaxInject
-    implementation(libs.javax.inject)
+    implementation(project(":domain"))
 }

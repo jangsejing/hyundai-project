@@ -40,7 +40,6 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
-
 }
 
 dependencies {
@@ -49,12 +48,15 @@ dependencies {
     implementation(project(":feature:detail"))
     implementation(project(":feature:home"))
     implementation(project(":feature:search"))
+    implementation(project(":domain"))
+    implementation(project(":navigator"))
+    implementation(project(":ui"))
 
-//    // androidx
-//    implementation(libs.androidx.activity.compose)
-//    implementation(libs.androidx.core.ktx)
-//    implementation(libs.bundles.androidx.lifecycle.runtimes)
-//
+    // androidx
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.bundles.androidx.lifecycle.runtimes)
+
     // compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.androidx.composes)
@@ -68,9 +70,6 @@ dependencies {
 
 //    // google
 //    implementation(libs.google.material)
-//
-//    // lich
-//    implementation(libs.lich.component)
 
 //    // retrofit
 //    implementation(libs.bundles.retrofits)

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">hyundai-장세진</string>
+    <string name="feature_title_search">SearchResult</string>
 </resources>

@@ -45,7 +45,7 @@ import com.jess.hyundai.feature.search.R
 @Composable
 fun PixabaySearchResult(
     entity: PixabayHitEntity,
-    onClick: () -> Unit,
+    onClick: (PixabayHitEntity) -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -57,7 +57,9 @@ fun PixabaySearchResult(
         PixabaySearchResultItem(
             entity = entity,
             extended = extended,
-            onClick = onClick,
+            onClick = {
+                onClick(entity)
+            },
         )
 
         PixabayExtendButton(

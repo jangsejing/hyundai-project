@@ -32,12 +32,12 @@ import com.jess.hyundai.domain.model.WikipediaPageEntity
 import com.jess.hyundai.feature.search.R
 
 /**
- * 위키 검색결과 Row
+ * 위키 검색 결과
  */
 @Composable
 internal fun WikipediaSearchResult(
     entities: List<WikipediaPageEntity>,
-    onClick: () -> Unit,
+    onClick: (WikipediaPageEntity) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -74,7 +74,7 @@ internal fun WikipediaSearchResult(
 @Composable
 internal fun WikipediaSearchResultItem(
     entity: WikipediaPageEntity,
-    onClick: () -> Unit,
+    onClick: (WikipediaPageEntity) -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -98,7 +98,11 @@ internal fun WikipediaSearchResultItem(
                     color = Color.White,
                     shape = RoundedCornerShape(4.dp),
                 )
-                .clickable(onClick = onClick),
+                .clickable(
+                    onClick = {
+                        onClick(entity)
+                    }
+                ),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AsyncImage(

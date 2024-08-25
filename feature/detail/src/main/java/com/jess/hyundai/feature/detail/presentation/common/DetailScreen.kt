@@ -2,12 +2,15 @@ package com.jess.hyundai.feature.detail.presentation.common
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -90,4 +93,18 @@ internal fun DetailTagsItem(
             }
         }
     }
+}
+
+@Composable
+fun DetailDivider(
+    modifier: Modifier = Modifier,
+) {
+    Column(
+        modifier = modifier
+    ) {
+        Spacer(modifier = Modifier.height(2.dp))
+        HorizontalDivider()
+        Spacer(modifier = Modifier.height(2.dp))
+    }
+
 }

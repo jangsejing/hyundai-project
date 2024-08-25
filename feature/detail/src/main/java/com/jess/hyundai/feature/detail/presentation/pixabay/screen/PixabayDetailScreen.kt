@@ -24,6 +24,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.jess.hyundai.feature.detail.R
 import com.jess.hyundai.feature.detail.presentation.common.DetailBasicItem
+import com.jess.hyundai.feature.detail.presentation.common.DetailDivider
 import com.jess.hyundai.feature.detail.presentation.common.DetailTagsItem
 import com.jess.hyundai.feature.detail.presentation.pixabay.PixabayDetailViewModel
 import com.jess.hyundai.ui.component.JessAppBar
@@ -71,7 +72,7 @@ fun PixabayDetailScreen(
                 content = uiState.user,
             )
 
-            Spacer(modifier = Modifier.height(4.dp))
+            DetailDivider()
 
             DetailTagsItem(
                 tags = uiState.tags,
@@ -80,7 +81,7 @@ fun PixabayDetailScreen(
                 }
             )
 
-            Spacer(modifier = Modifier.height(4.dp))
+            DetailDivider()
 
             DetailBasicItem(
                 title = stringResource(id = R.string.pixabay_detail_size),
@@ -92,7 +93,7 @@ fun PixabayDetailScreen(
                 ),
             )
 
-            Spacer(modifier = Modifier.height(4.dp))
+            DetailDivider()
 
             DetailBasicItem(
                 title = stringResource(id = R.string.pixabay_detail_views),
@@ -101,7 +102,7 @@ fun PixabayDetailScreen(
                 ).format(uiState.views),
             )
 
-            Spacer(modifier = Modifier.height(4.dp))
+            DetailDivider()
 
             DetailBasicItem(
                 title = stringResource(id = R.string.pixabay_detail_downloads),

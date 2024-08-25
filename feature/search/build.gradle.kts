@@ -41,8 +41,9 @@ dependencies {
     // project
     implementation(project(":data"))
     implementation(project(":domain"))
-    implementation(project(":ui"))
     implementation(project(":network"))
+    implementation(project(":navigator"))
+    implementation(project(":ui"))
 
     // androidx
     implementation(libs.androidx.activity.compose)

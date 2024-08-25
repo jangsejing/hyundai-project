@@ -1,37 +1,39 @@
 package com.jess.hyundai.feature.detail.presentation.pixabay
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.jess.hyundai.domain.model.PixabayHitEntity
+import com.jess.hyundai.feature.detail.presentation.pixabay.PixabayDetailActivity.Companion.EXTRA_PIXABAY_ENTITY
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import javax.inject.Inject
 
-class PixabayDetailViewModel : ViewModel() {
+@HiltViewModel
+class PixabayDetailViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
+) : ViewModel() {
+
+    private val entity get() = savedStateHandle.get<PixabayHitEntity>(EXTRA_PIXABAY_ENTITY)
 
     private val _uiState = MutableStateFlow(PixabayDetailUiState.empty())
     val uiState: StateFlow<PixabayDetailUiState> = _uiState.asStateFlow()
 
     init {
-        _uiState.update { prev ->
-            prev.copy(
-                user = "장세진",
-                tags = listOf(
-                    "bar",
-                    "ipad",
-                    "mockup",
-                    "bar",
-                    "ipad",
-                    "mockup",
-                    "bar",
-                    "ipad",
-                    "mockup",
-                    "bar",
-                    "ipad",
-                    "mockup",
-                ),
-                imageUrl = "https://pixabay.com/get/gcb9fbdd4863e02c911b8ed5fe1f171617027fcfd2b1ba3fb34624dec072e098e983c31190e5ea665e612cb3dc0e13d44bc2057fdeb66475fe9f99266eee79f98_1280.jpg"
-            )
-        }
+        createPixabayDetail()
     }
 
+    private fun createPixabayDetail() {
+        entity?.let { entity ->
+            _uiState.update { prev ->
+                prev.copy(
+                    user = entity.user,
+                    tags = entity.tags,
+                    imageUrl = entity.imageUrl,
+                )
+            }
+        }
+    }
 }

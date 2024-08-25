@@ -1,5 +1,7 @@
 package com.jess.hyundai.feature.search.presentation.screen
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -24,27 +27,39 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.jess.hyundai.domain.model.PixabayHitEntity
+import com.jess.hyundai.domain.model.WikipediaPageEntity
 import com.jess.hyundai.feature.search.R
 import com.jess.hyundai.feature.search.presentation.SearchResultItem
 import com.jess.hyundai.feature.search.presentation.SearchResultUiState
 import com.jess.hyundai.feature.search.presentation.SearchResultViewModel
+import com.jess.hyundai.navigator.Direction
+import com.jess.hyundai.navigator.Navigator
 import com.jess.hyundai.ui.component.JessAppBar
 import com.jess.hyundai.ui.component.JessCircularProgress
 import com.jess.hyundai.ui.component.JessInfinityLazyColumn
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun SearchScreen(
+internal fun SearchResultScreen(
     viewModel: SearchResultViewModel,
+    navigator: Navigator,
     onBackPress: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
+    val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     // TODO Jess.
     LaunchedEffect(Unit) {
         viewModel.onSearch()
+    }
+
+    val launcher = rememberLauncherForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+
     }
 
     Scaffold(
@@ -70,9 +85,25 @@ internal fun SearchScreen(
     ) { innerPadding ->
         // content
         if (uiState.query.isNullOrBlank().not()) {
-            SearchResult(
+            SearchResultContent(
                 uiState = uiState,
                 modifier = Modifier.padding(innerPadding),
+                onPixabayClick = { entity ->
+                    navigator.getIntent(
+                        context = context,
+                        direction = Direction.PixabayDetail(entity)
+                    ).let { intent ->
+                        launcher.launch(intent)
+                    }
+                },
+                onWikipediaClick = { entity ->
+                    navigator.getIntent(
+                        context = context,
+                        direction = Direction.WikipediaDetail(entity)
+                    ).let { intent ->
+                        launcher.launch(intent)
+                    }
+                },
                 onLoadMore = {
                     viewModel.onLoadNextPage()
                 }
@@ -90,8 +121,10 @@ internal fun SearchScreen(
  * 검색 결과
  */
 @Composable
-private fun SearchResult(
+private fun SearchResultContent(
     uiState: SearchResultUiState,
+    onPixabayClick: (PixabayHitEntity) -> Unit,
+    onWikipediaClick: (WikipediaPageEntity) -> Unit,
     onLoadMore: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -141,16 +174,12 @@ private fun SearchResult(
                 when (item) {
                     is SearchResultItem.PixabayItem -> PixabaySearchResult(
                         entity = item.entity,
-                        onClick = {
-
-                        }
+                        onClick = onPixabayClick,
                     )
 
                     is SearchResultItem.WikipediaItem -> WikipediaSearchResult(
                         entities = item.entities,
-                        onClick = {
-
-                        }
+                        onClick = onWikipediaClick,
                     )
                 }
             }
