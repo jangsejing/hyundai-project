@@ -38,6 +38,7 @@ android {
 dependencies {
 
     // project
+    implementation(project(":navigator"))
     implementation(project(":ui"))
 
     // androidx

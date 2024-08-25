@@ -31,6 +31,10 @@ class PixabayDetailViewModel @Inject constructor(
                 prev.copy(
                     user = entity.user,
                     tags = entity.tags,
+                    width = entity.width,
+                    height = entity.height,
+                    views = entity.views,
+                    downloads = entity.downloads,
                     imageUrl = entity.imageUrl,
                 )
             }

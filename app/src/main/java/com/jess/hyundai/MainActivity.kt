@@ -3,7 +3,7 @@ package com.jess.hyundai
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.enableEdgeToEdge
-import com.jess.hyundai.feature.search.presentation.SearchResultActivity
+import com.jess.hyundai.feature.home.presentation.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -13,10 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         startActivity(
-            SearchResultActivity.newIntent(
-                this,
-                "smile",
-            )
+            HomeActivity.newIntent(this)
         )
     }
 }

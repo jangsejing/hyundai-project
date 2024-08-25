@@ -1,5 +1,6 @@
 package com.jess.hyundai.feature.search.presentation.screen
 
+import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
@@ -16,10 +17,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -34,7 +33,6 @@ import com.jess.hyundai.feature.search.presentation.SearchResultItem
 import com.jess.hyundai.feature.search.presentation.SearchResultUiState
 import com.jess.hyundai.feature.search.presentation.SearchResultViewModel
 import com.jess.hyundai.navigator.Direction
-import com.jess.hyundai.navigator.Navigator
 import com.jess.hyundai.ui.component.JessAppBar
 import com.jess.hyundai.ui.component.JessCircularProgress
 import com.jess.hyundai.ui.component.JessInfinityLazyColumn
@@ -43,18 +41,12 @@ import com.jess.hyundai.ui.component.JessInfinityLazyColumn
 @Composable
 internal fun SearchResultScreen(
     viewModel: SearchResultViewModel,
-    navigator: Navigator,
+    getIntent: (Direction) -> Intent,
     onBackPress: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
-    val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-    // TODO Jess.
-    LaunchedEffect(Unit) {
-        viewModel.onSearch()
-    }
 
     val launcher = rememberLauncherForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -89,20 +81,14 @@ internal fun SearchResultScreen(
                 uiState = uiState,
                 modifier = Modifier.padding(innerPadding),
                 onPixabayClick = { entity ->
-                    navigator.getIntent(
-                        context = context,
-                        direction = Direction.PixabayDetail(entity)
-                    ).let { intent ->
-                        launcher.launch(intent)
-                    }
+                    launcher.launch(
+                        getIntent(Direction.PixabayDetail(entity))
+                    )
                 },
                 onWikipediaClick = { entity ->
-                    navigator.getIntent(
-                        context = context,
-                        direction = Direction.WikipediaDetail(entity)
-                    ).let { intent ->
-                        launcher.launch(intent)
-                    }
+                    launcher.launch(
+                        getIntent(Direction.WikipediaDetail(entity))
+                    )
                 },
                 onLoadMore = {
                     viewModel.onLoadNextPage()

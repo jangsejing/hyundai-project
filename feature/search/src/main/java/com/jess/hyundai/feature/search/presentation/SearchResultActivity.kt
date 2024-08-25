@@ -18,14 +18,14 @@ class SearchResultActivity : ComponentActivity() {
 
     companion object {
 
-
+        const val EXTRA_SEARCH_QUERY = "extra_query"
 
         fun newIntent(
             context: Context,
             query: String,
         ): Intent {
             return Intent(context, SearchResultActivity::class.java).apply {
-
+                putExtra(EXTRA_SEARCH_QUERY, query)
             }
         }
     }
@@ -42,7 +42,9 @@ class SearchResultActivity : ComponentActivity() {
             HyundaiTheme {
                 SearchResultScreen(
                     viewModel = viewModel,
-                    navigator = navigator,
+                    getIntent = { direction ->
+                        navigator.getIntent(this, direction)
+                    },
                     onBackPress = {
                         finish()
                     }

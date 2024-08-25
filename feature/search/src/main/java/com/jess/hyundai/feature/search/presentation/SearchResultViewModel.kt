@@ -1,9 +1,11 @@
 package com.jess.hyundai.feature.search.presentation
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jess.hyundai.domain.usecase.PixabayGetImageUseCase
 import com.jess.hyundai.domain.usecase.WikipediaGetRelatedPageUseCase
+import com.jess.hyundai.feature.search.presentation.SearchResultActivity.Companion.EXTRA_SEARCH_QUERY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,21 +17,35 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchResultViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private val getPixabayImage: PixabayGetImageUseCase,
     private val getWikipediaRelatedPage: WikipediaGetRelatedPageUseCase,
 ) : ViewModel() {
 
+    private val query get() = savedStateHandle.get<String>(EXTRA_SEARCH_QUERY)
+
     private val _uiState = MutableStateFlow(SearchResultUiState.empty())
     val uiState: StateFlow<SearchResultUiState> = _uiState.asStateFlow()
 
+    // 페이징 정보
     private var nextPage: Int = 1
     private var finishedPage: Boolean = false
 
+    init {
+        onSearch(query)
+    }
+
     fun onSearch(
-        query: String = "smile"
+        query: String?,
     ) {
+        if (query.isNullOrBlank()) {
+            return
+        }
+
+        // 페이지 정보 초기화
         nextPage = 1
         finishedPage = false
+
         requestItems(
             query = query,
             firstPage = true,

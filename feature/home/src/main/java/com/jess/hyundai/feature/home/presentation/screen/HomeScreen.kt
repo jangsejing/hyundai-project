@@ -1,5 +1,6 @@
 package com.jess.hyundai.feature.home.presentation.screen
 
+import android.content.Intent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -7,8 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
@@ -25,20 +24,25 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.jess.hyundai.feature.home.R
+import com.jess.hyundai.navigator.Direction
 import com.jess.hyundai.ui.component.JessAppBar
 import com.jess.hyundai.ui.component.JessTextField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun HomeScreen(
-    modifier: Modifier = Modifier,
+    getIntent: (Direction) -> Intent,
     onBackPress: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
+
+    val context = LocalContext.current
+    var query by remember { mutableStateOf("motors") }
 
     Scaffold(
         modifier = modifier
@@ -62,7 +66,6 @@ internal fun HomeScreen(
         }
     ) { innerPadding ->
 
-        var query by remember { mutableStateOf("hyundai motors") }
         val keyboardController = LocalSoftwareKeyboardController.current
 
         Column(
@@ -89,23 +92,23 @@ internal fun HomeScreen(
                             contentDescription = stringResource(id = R.string.home_search)
                         )
                     },
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                    keyboardActions = KeyboardActions(
-                        onDone = {
-                            keyboardController?.hide()
-                        }
-                    ),
                     singleLine = true,
                 )
             }
 
             Button(
-                onClick = {
-                    keyboardController?.hide()
-                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(24.dp),
+                onClick = {
+                    keyboardController?.hide()
+
+                    if (query.isNotEmpty()) {
+                        context.startActivity(
+                            getIntent(Direction.SearchResult(query))
+                        )
+                    }
+                },
             ) {
                 Text(text = stringResource(id = R.string.home_search))
             }

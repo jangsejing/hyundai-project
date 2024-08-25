@@ -14,7 +14,11 @@ internal fun PixabayResponse.toEntity() = PixabayEntity(
 internal fun PixabayHitResponse.toEntity() = PixabayHitEntity(
     id = id,
     user = user,
-    tags = tags?.split(",").orEmpty(),
+    tags = tags
+        ?.split(",")
+        ?.map {
+            it.trim()
+        }.orEmpty(),
     width = imageWidth,
     height = imageHeight,
     views = views,
