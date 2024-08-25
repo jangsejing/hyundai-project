@@ -19,7 +19,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "hyundai"
+rootProject.name = "hyundai-project"
 include(
     ":app",
     ":data",
