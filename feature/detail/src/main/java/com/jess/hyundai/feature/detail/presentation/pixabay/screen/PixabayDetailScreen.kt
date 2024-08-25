@@ -1,5 +1,6 @@
 package com.jess.hyundai.feature.detail.presentation.pixabay.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,19 +16,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.jess.hyundai.feature.detail.R
 import com.jess.hyundai.feature.detail.presentation.common.DetailBasicItem
 import com.jess.hyundai.feature.detail.presentation.common.DetailDivider
 import com.jess.hyundai.feature.detail.presentation.common.DetailTagsItem
 import com.jess.hyundai.feature.detail.presentation.pixabay.PixabayDetailViewModel
 import com.jess.hyundai.ui.component.JessAppBar
+import com.jess.hyundai.ui.component.JessAsyncImage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -113,15 +112,12 @@ fun PixabayDetailScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(uiState.imageUrl)
-                    .crossfade(true)
-                    .build(),
+            JessAsyncImage(
+                url = uiState.imageUrl,
                 contentDescription = uiState.tags.toString(),
                 modifier = Modifier
+                    .background(Color.White)
                     .weight(1f),
-                contentScale = ContentScale.Crop,
             )
         }
     }

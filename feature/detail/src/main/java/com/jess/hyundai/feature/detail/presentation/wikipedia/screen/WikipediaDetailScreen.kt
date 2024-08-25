@@ -1,5 +1,6 @@
 package com.jess.hyundai.feature.detail.presentation.wikipedia.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -30,6 +32,7 @@ import com.jess.hyundai.feature.detail.presentation.common.DetailDivider
 import com.jess.hyundai.feature.detail.presentation.common.DetailTagsItem
 import com.jess.hyundai.feature.detail.presentation.wikipedia.WikipediaDetailViewModel
 import com.jess.hyundai.ui.component.JessAppBar
+import com.jess.hyundai.ui.component.JessAsyncImage
 import com.jess.hyundai.ui.webview.ComposeWebView
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -95,16 +98,13 @@ fun WikipediaDetailScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(uiState.imageUrl)
-                    .crossfade(true)
-                    .build(),
+            JessAsyncImage(
+                url = uiState.imageUrl,
                 contentDescription = uiState.keywords.toString(),
                 modifier = Modifier
                     .fillMaxWidth()
+                    .background(Color.White)
                     .height(160.dp),
-                contentScale = ContentScale.Crop,
             )
 
             if (uiState.webUrl.isNullOrBlank().not()) {

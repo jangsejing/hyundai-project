@@ -15,5 +15,6 @@ class MainActivity : ComponentActivity() {
         startActivity(
             HomeActivity.newIntent(this)
         )
+        finish()
     }
 }
