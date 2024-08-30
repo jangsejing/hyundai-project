@@ -128,8 +128,8 @@ private fun SearchButton(
     getQuery: () -> String,
     getIntent: (Direction) -> Intent,
     onDialog: () -> Unit,
-    modifier: Modifier = Modifier,
     keyboardController: SoftwareKeyboardController?,
+    modifier: Modifier = Modifier,
 ) {
 
     val context = LocalContext.current
