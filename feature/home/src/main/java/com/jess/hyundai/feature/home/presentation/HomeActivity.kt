@@ -33,8 +33,8 @@ class HomeActivity : ComponentActivity() {
         setContent {
             HyundaiTheme {
                 HomeScreen(
-                    getIntent = { direction ->
-                        navigator.getIntent(this, direction)
+                    onStartActivity = { direction ->
+                        startActivity(navigator.getIntent(this, direction))
                     },
                     onBackPressed = {
                         finish()
