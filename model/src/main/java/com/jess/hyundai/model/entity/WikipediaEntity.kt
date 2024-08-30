@@ -1,14 +1,15 @@
 package com.jess.hyundai.model.entity
 
 import android.os.Parcelable
-import androidx.compose.runtime.Stable
+import androidx.compose.runtime.Immutable
 import kotlinx.parcelize.Parcelize
 
+@Immutable
 data class WikipediaEntity(
     val pages: List<WikipediaPageEntity>,
 )
 
-@Stable
+@Immutable
 @Parcelize
 data class WikipediaPageEntity(
     val id: Long?,
