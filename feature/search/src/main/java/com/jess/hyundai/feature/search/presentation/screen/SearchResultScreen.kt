@@ -52,6 +52,8 @@ import com.jess.hyundai.navigator.Direction
 import com.jess.hyundai.ui.component.JessAppBar
 import com.jess.hyundai.ui.component.JessCircularProgress
 import com.jess.hyundai.ui.component.JessInfinityLazyColumn
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -173,53 +175,77 @@ private fun SearchResultContent(
             style = MaterialTheme.typography.titleLarge,
         )
 
-        when (uiState.state) {
-            is SearchResultContentUiState.Succeeded -> {
-                JessInfinityLazyColumn(
-                    state = lazyListState,
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
-                    onLoadMore = onLoadMore,
-                ) {
-                    itemsIndexed(
-                        items = uiState.items,
-                        key = { _, item ->
-                            item.hashCode()
-                        },
-                        contentType = { _, item ->
-                            item
-                        },
-                    ) { _, item ->
-                        // 위키 검색 결과
-                        when (item) {
-                            is SearchResultItem.PixabayItem -> PixabaySearchResult(
-                                entity = item.entity,
-                                onClick = onPixabayClick,
-                            )
+        SearchResultList(
+            state = uiState.state,
+            items = uiState.items,
+            onPixabayClick = onPixabayClick,
+            onWikipediaClick = onWikipediaClick,
+            onLoadMore = onLoadMore,
+            onBackPressed = onBackPressed,
+        )
+    }
+}
 
-                            is SearchResultItem.WikipediaItem -> WikipediaSearchResult(
-                                entities = item.entities,
-                                onClick = onWikipediaClick,
-                            )
-                        }
+@Composable
+private fun SearchResultList(
+    state: SearchResultContentUiState,
+    items: List<SearchResultItem>,
+    onPixabayClick: (PixabayHitEntity) -> Unit,
+    onWikipediaClick: (WikipediaPageEntity) -> Unit,
+    onLoadMore: () -> Unit,
+    onBackPressed: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+
+    val lazyListState = rememberLazyListState()
+
+    when (state) {
+        is SearchResultContentUiState.Succeeded -> {
+            JessInfinityLazyColumn(
+                modifier = modifier,
+                state = lazyListState,
+                verticalArrangement = Arrangement.spacedBy(12.dp),
+                onLoadMore = onLoadMore,
+            ) {
+                itemsIndexed(
+                    items = items,
+                    key = { _, item ->
+                        item.hashCode()
+                    },
+                    contentType = { _, item ->
+                        item
+                    },
+                ) { _, item ->
+                    // 위키 검색 결과
+                    when (item) {
+                        is SearchResultItem.PixabayItem -> PixabaySearchResult(
+                            entity = item.entity,
+                            onClick = onPixabayClick,
+                        )
+
+                        is SearchResultItem.WikipediaItem -> WikipediaSearchResult(
+                            entities = item.entities,
+                            onClick = onWikipediaClick,
+                        )
                     }
                 }
             }
-
-            is SearchResultContentUiState.Empty -> {
-                SearchResultEmptyPage(
-                    onBackPressed = onBackPressed,
-                )
-            }
-
-            is SearchResultContentUiState.Failed -> {
-                SearchResultFailedPage(
-                    message = uiState.state.message,
-                    onBackPressed = onBackPressed,
-                )
-            }
-
-            else -> Unit // nothing
         }
+
+        is SearchResultContentUiState.Empty -> {
+            SearchResultEmptyPage(
+                onBackPressed = onBackPressed,
+            )
+        }
+
+        is SearchResultContentUiState.Failed -> {
+            SearchResultFailedPage(
+                message = state.message,
+                onBackPressed = onBackPressed,
+            )
+        }
+
+        else -> Unit // nothing
     }
 }
 

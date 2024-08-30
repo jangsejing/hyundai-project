@@ -62,6 +62,9 @@ dependencies {
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.compiler)
 
+    // kotlin
+    implementation(libs.kotlinx.collections.immutable)
+
     // retrofit
     implementation(libs.bundles.retrofits)
 

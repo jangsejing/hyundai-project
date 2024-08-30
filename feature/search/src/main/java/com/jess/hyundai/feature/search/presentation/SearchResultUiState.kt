@@ -1,5 +1,7 @@
 package com.jess.hyundai.feature.search.presentation
 
+import androidx.compose.runtime.Stable
+
 /**
  * @property state 화면의 상태
  * @property query 검색어
@@ -7,6 +9,7 @@ package com.jess.hyundai.feature.search.presentation
  * @property firstPage 첫 페이지 여부
  * @property loading 로딩중
  */
+@Stable
 data class SearchResultUiState(
     val state: SearchResultContentUiState,
     val query: String?,
@@ -33,6 +36,7 @@ data class SearchResultUiState(
     }
 }
 
+@Stable
 sealed interface SearchResultContentUiState {
     data object None : SearchResultContentUiState
     data object Succeeded : SearchResultContentUiState

@@ -1,6 +1,7 @@
 package com.jess.hyundai.model.entity
 
 import android.os.Parcelable
+import androidx.compose.runtime.Stable
 import kotlinx.parcelize.Parcelize
 
 class PixabayEntity(
@@ -9,6 +10,7 @@ class PixabayEntity(
     val hits: List<PixabayHitEntity>,
 )
 
+@Stable
 @Parcelize
 data class PixabayHitEntity(
     val id: Long?,

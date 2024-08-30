@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.jess.hyundai.feature.home.R
@@ -43,7 +44,6 @@ internal fun HomeScreen(
     onBackPressed: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val context = LocalContext.current
     var query by remember { mutableStateOf("motors") }
     var openAlertDialog by remember { mutableStateOf(false) }
 
@@ -98,23 +98,16 @@ internal fun HomeScreen(
                 )
             }
 
-            Button(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(24.dp),
-                onClick = {
-                    if (query.isNotEmpty()) {
-                        keyboardController?.hide()
-                        context.startActivity(
-                            getIntent(Direction.SearchResult(query)),
-                        )
-                    } else {
-                        openAlertDialog = true
-                    }
+            SearchButton(
+                getQuery = {
+                    query
                 },
-            ) {
-                Text(text = stringResource(id = R.string.home_search))
-            }
+                keyboardController = keyboardController,
+                getIntent = getIntent,
+                onDialog = {
+                    openAlertDialog = true
+                }
+            )
         }
     }
 
@@ -127,6 +120,36 @@ internal fun HomeScreen(
                 openAlertDialog = false
             },
         )
+    }
+}
+
+@Composable
+private fun SearchButton(
+    getQuery: () -> String,
+    getIntent: (Direction) -> Intent,
+    onDialog: () -> Unit,
+    modifier: Modifier = Modifier,
+    keyboardController: SoftwareKeyboardController?,
+) {
+
+    val context = LocalContext.current
+
+    Button(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(24.dp),
+        onClick = {
+            if (getQuery().isNotEmpty()) {
+                keyboardController?.hide()
+                context.startActivity(
+                    getIntent(Direction.SearchResult(getQuery())),
+                )
+            } else {
+                onDialog()
+            }
+        },
+    ) {
+        Text(text = stringResource(id = R.string.home_search))
     }
 }
 

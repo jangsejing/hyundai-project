@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import okhttp3.internal.toImmutableList
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -96,7 +97,7 @@ class SearchResultViewModel @Inject constructor(
                         SearchResultContentUiState.Empty
                     },
                     query = query,
-                    items = items,
+                    items = items.toImmutableList(),
                     firstPage = firstPage,
                     loading = false,
                 )
@@ -186,7 +187,7 @@ class SearchResultViewModel @Inject constructor(
         ).takeIf {
             it.isNotEmpty()
         }?.let { items ->
-            SearchResultItem.WikipediaItem(items)
+            SearchResultItem.WikipediaItem(items.toImmutableList())
         }
     }
 

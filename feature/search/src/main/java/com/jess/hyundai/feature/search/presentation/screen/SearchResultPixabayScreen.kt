@@ -45,39 +45,59 @@ fun PixabaySearchResult(
     onClick: (PixabayHitEntity) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+
     var extended by rememberSaveable { mutableStateOf(false) }
 
     Box(
         modifier = modifier.fillMaxWidth(),
     ) {
         PixabaySearchResultItem(
-            entity = entity,
-            extended = extended,
+            imageUrl = entity.imageUrl.orEmpty(),
+            tags = entity.tags,
+            user = entity.user.orEmpty(),
+            width = entity.width,
+            height = entity.height,
+            views = entity.views,
+            downloads = entity.downloads,
             onClick = {
                 onClick(entity)
             },
+            getExtended = {
+                extended
+            }
         )
 
         PixabayExtendButton(
-            extended = extended,
             modifier = Modifier.align(
                 Alignment.BottomEnd,
             ),
             onClick = {
                 extended = extended.not()
             },
+            getExtended = {
+                extended
+            }
         )
     }
 }
 
 @Composable
 private fun PixabaySearchResultItem(
-    entity: PixabayHitEntity,
-    extended: Boolean,
+    imageUrl: String,
+    tags: List<String>,
+    user: String,
+    width: Int?,
+    height: Int?,
+    views: Long?,
+    downloads: Long?,
     onClick: () -> Unit,
+    getExtended: () -> Boolean,
     modifier: Modifier = Modifier,
 ) {
-    val height by animateDpAsState(
+
+    val extended = getExtended()
+
+    val changedHeight by animateDpAsState(
         targetValue = if (extended) {
             120.dp
         } else {
@@ -89,7 +109,7 @@ private fun PixabaySearchResultItem(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .height(height),
+            .height(changedHeight),
         shape = RoundedCornerShape(4.dp),
         colors = CardDefaults.cardColors().copy(
             containerColor = Color.White,
@@ -101,12 +121,12 @@ private fun PixabaySearchResultItem(
                 .clickable(onClick = onClick),
         ) {
             JessAsyncImage(
-                url = entity.imageUrl,
-                contentDescription = entity.tags.toString(),
+                url = imageUrl,
+                contentDescription = tags.toString(),
                 modifier = Modifier
                     .size(
                         width = 80.dp,
-                        height = height,
+                        height = changedHeight,
                     )
                     .clip(RoundedCornerShape(size = 4.dp)),
             )
@@ -117,7 +137,7 @@ private fun PixabaySearchResultItem(
                 modifier = Modifier.padding(4.dp),
             ) {
                 Text(
-                    text = entity.user.orEmpty(),
+                    text = user,
                     fontWeight = FontWeight.Bold,
                     style = MaterialTheme.typography.bodyLarge,
                 )
@@ -125,35 +145,35 @@ private fun PixabaySearchResultItem(
                 Spacer(modifier = Modifier.height(4.dp))
 
                 val body = buildAnnotatedString {
-                    if (entity.tags.isNotEmpty()) {
+                    if (tags.isNotEmpty()) {
                         append(
                             stringResource(
                                 id = R.string.search_pixabay_tag,
-                            ).format(entity.tags.joinToString(", ")),
+                            ).format(tags.joinToString(", ")),
                         )
                     }
 
-                    if (entity.width != null && entity.height != null) {
+                    if (width != null && height != null) {
                         append(
                             stringResource(
                                 id = R.string.search_pixabay_size,
-                            ).format(entity.width ?: 0, entity.height ?: 0),
+                            ).format(width, height),
                         )
                     }
 
-                    if (entity.views != null) {
+                    if (views != null) {
                         append(
                             stringResource(
                                 id = R.string.search_pixabay_views,
-                            ).format(entity.views ?: 0),
+                            ).format(views),
                         )
                     }
 
-                    if (entity.downloads != null) {
+                    if (downloads != null) {
                         append(
                             stringResource(
                                 id = R.string.search_pixabay_downloads,
-                            ).format(entity.downloads ?: 0),
+                            ).format(downloads),
                         )
                     }
                 }
@@ -177,15 +197,15 @@ private fun PixabaySearchResultItem(
 @Composable
 private fun PixabayExtendButton(
     onClick: () -> Unit,
+    getExtended: () -> Boolean, // true 펼침, false 닫힘 (기본값)
     modifier: Modifier = Modifier,
-    extended: Boolean = false, // true 펼침, false 닫힘 (기본값)
 ) {
     IconButton(
         modifier = modifier,
         onClick = onClick,
     ) {
         Icon(
-            imageVector = if (extended) {
+            imageVector = if (getExtended()) {
                 Icons.Filled.KeyboardArrowUp
             } else {
                 Icons.Filled.KeyboardArrowDown

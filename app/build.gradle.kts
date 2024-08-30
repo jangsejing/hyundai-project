@@ -61,18 +61,9 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.androidx.composes)
 
-//    // coil
-//    implementation(libs.coil.compose)
-
     // dagger
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.compiler)
-
-//    // google
-//    implementation(libs.google.material)
-
-//    // retrofit
-//    implementation(libs.bundles.retrofits)
 
     // other
     implementation(libs.timber.core)
