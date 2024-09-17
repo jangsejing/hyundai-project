@@ -98,7 +98,6 @@ class SearchResultViewModel @Inject constructor(
                     },
                     query = query,
                     items = items.toImmutableList(),
-                    firstPage = firstPage,
                     loading = false,
                 )
             }
