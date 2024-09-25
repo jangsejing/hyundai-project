@@ -45,7 +45,6 @@ fun PixabaySearchResult(
     onClick: (PixabayHitEntity) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     var extended by rememberSaveable { mutableStateOf(false) }
 
     Box(
@@ -64,7 +63,7 @@ fun PixabaySearchResult(
             },
             getExtended = {
                 extended
-            }
+            },
         )
 
         PixabayExtendButton(
@@ -76,7 +75,7 @@ fun PixabaySearchResult(
             },
             getExtended = {
                 extended
-            }
+            },
         )
     }
 }
@@ -94,7 +93,6 @@ private fun PixabaySearchResultItem(
     getExtended: () -> Boolean,
     modifier: Modifier = Modifier,
 ) {
-
     val extended = getExtended()
 
     val changedHeight by animateDpAsState(

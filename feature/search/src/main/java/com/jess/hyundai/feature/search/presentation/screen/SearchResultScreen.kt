@@ -52,8 +52,6 @@ import com.jess.hyundai.navigator.Direction
 import com.jess.hyundai.ui.component.JessAppBar
 import com.jess.hyundai.ui.component.JessCircularProgress
 import com.jess.hyundai.ui.component.JessInfinityLazyColumn
-import kotlinx.collections.immutable.ImmutableList
-import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -196,7 +194,6 @@ private fun SearchResultList(
     onBackPressed: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     val lazyListState = rememberLazyListState()
 
     when (state) {
